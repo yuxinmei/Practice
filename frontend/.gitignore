@@ -1,0 +1,38 @@
+.DS_Store
+node_modules
+/dist
+*.log
+explorations
+TODOs.md
+coverage
+RELEASE_NOTE*.md
+
+/tests/e2e/videos/
+/tests/e2e/screenshots/
+test/e2e/reports
+
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+packages/vue-server-renderer/basic.js
+packages/vue-server-renderer/build.js
+packages/vue-server-renderer/server-plugin.js
+packages/vue-server-renderer/client-plugin.js
+packages/vue-template-compiler/build.js

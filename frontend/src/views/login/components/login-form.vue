@@ -6,7 +6,7 @@
         <el-input v-model="formData.username"></el-input>
       </el-form-item>
       <el-form-item label="password" prop="password">
-        <el-input type="password" v-model="formData.password"></el-input>
+        <el-input type="password" show-password v-model="formData.password"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button class="login-btn" type="primary" @click="onSubmit">login</el-button>
@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { ElForm } from 'element-plus'
+import router from '@/router'
 import { defineComponent, reactive, ref } from 'vue'
 
 export default defineComponent({
@@ -27,14 +27,14 @@ export default defineComponent({
       password: ''
     })
 
-    const ruleForm = ref<InstanceType<typeof ElForm>>()
+    const ruleForm = ref<any>(null)
 
     const onSubmit = () => {
-      ruleForm.value?.validate().then((valid: boolean) => {
+      console.log(1)
+      ruleForm.value.validate().then((valid: boolean) => {
         if (valid) {
-          alert(`username:${formData.username}, password:${formData.password}`)
+          router.push('/main')
         } else {
-          console.log('error submit!!')
           return false
         }
       })
@@ -56,6 +56,17 @@ export default defineComponent({
         {
           required: true,
           message: 'Please input password',
+          trigger: 'blur'
+        },
+        {
+          pattern: /^[a-z]{1,15}$/,
+          message: 'Password should only contain lowercase letters.',
+          trigger: 'blur'
+        },
+        {
+          min: 3,
+          max: 8,
+          message: 'Password  length should between 3-8.',
           trigger: 'blur'
         }
       ]

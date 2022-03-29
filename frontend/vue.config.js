@@ -1,34 +1,20 @@
-// const path = require('path')
-
 module.exports = {
-  // outputDir: './build',
-  // publicPath: './',
   devServer: {
+    open: true,
+    host: 'localhost',
+    port: 8081,
+    https: false,
+    //以上的ip和端口是我们本机的;下面为需要跨域的
     proxy: {
+      //配置跨域
       '/api': {
-        target: 'http://httpbin.org',
-        pathRewrite: {
-          '^/api': ''
-        },
+        target: 'http://localhost:8080/api/', //这里后台的地址模拟的;应该填写你们真实的后台接口
         ws: true,
-        changeOrigin: true
-      }
-    }
-  },
-  configureWebpack: {
-    resolve: {
-      alias: {
-        views: '@/views'
+        changOrigin: true, //允许跨域
+        pathRewrite: {
+          '^/api': '' //请求的时候使用这个api就可以
+        }
       }
     }
   }
-  // configureWebpack: (config) => {
-  //   config.resolve.alias = {
-  //     '@': path.resolve(__dirname, 'src'),
-  //     views: '@/views'
-  //   }
-  // },
-  // chainWebpack: (config) => {
-  //   config.resolve.alias.set('@', path.resolve(__dirname, 'src')).set('views', '@/views')
-  // }
 }

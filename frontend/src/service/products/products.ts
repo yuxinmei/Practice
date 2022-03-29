@@ -1,10 +1,15 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://httpbin.org'
+// const instance = axios.create({
+//   baseURL: 'http://localhost:8080/api/',
+//   timeout: 1000,
+//   headers: { 'X-Custom-Header': 'foobar' }
+// })
 
 export function getProducts() {
-  return axios.get('/get').then((res) => {
-    console.log(res.data)
+  alert(11111)
+  return axios.get('https://www.runoob.com/try/ajax/json_demo.json').then((res) => {
+    alert(res.data)
   })
 }
 
@@ -16,7 +21,7 @@ export function getProduct(id: number) {
 
 export function newProduct(newData: any) {
   return axios
-    .post('/post', {
+    .post('/api/add', {
       data: newData
     })
     .then((res) => {

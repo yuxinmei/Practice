@@ -1,22 +1,25 @@
 <template>
-  <el-button type="primary" class="add-button" @click="openDialog">add</el-button>
+  <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
 
-  <el-dialog v-model="dialogFormVisible" title="Add product">
-    <el-form :model="form">
-      <el-form-item label="Name">
-        <el-input v-model="form.name" autocomplete="off" />
-      </el-form-item>
-      <el-form-item label="Stock">
-        <el-input v-model="form.stock" autocomplete="off" />
-      </el-form-item>
-    </el-form>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="handleNewData(form)">Confirm</el-button>
-      </span>
+  <el-dialog :visible.sync="dialogFormVisible" v-model:visible="dialogFormVisible">
+    <template v-slot:default>
+      <el-form :model="form">
+        <el-form-item label="Name">
+          <el-input v-model="form.name" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="Stock">
+          <el-input v-model="form.stock" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+    </template>
+    <template v-slot:footer>
+      <div class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">cancel</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">confirm</el-button>
+      </div>
     </template>
   </el-dialog>
+
   <el-table class="table" border :data="filterTableData" style="width: 100%">
     <el-table-column label="Name" prop="name" />
     <el-table-column label="Stock" prop="stock" />
@@ -35,7 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, toRefs } from 'vue'
 import { getProducts, newProduct, deleteProduct } from '@/service/products/products'
 
 interface Product {
